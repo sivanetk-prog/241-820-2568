@@ -1,4 +1,4 @@
-//
+/*
 let firstName = "bank"
 const idcard ='123'
 
@@ -91,4 +91,4 @@ for(let i=0;i<=10;i++){
     console.log("Hello world from for loop")
 }
 
-
+*/
