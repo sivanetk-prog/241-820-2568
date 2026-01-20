@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <input type="radio" name="gender" value="male" onchange="ChangeGender()" checked="True"> Male
+    <input type="radio" name="gender" value="female" onchange="ChangeGender()"> Female
+    <input type="radio" name="gender" value="other"> Other
+
+    <script> 
+       /* function userClicked() {
+            alert("User was clicked! the user");
+        }
+
+        function divClicked() {
+            alert("Div was clicked! the div");
+        }/
+        */
+        function ChangeGender() {
+            // choose gender all input
+            let genders = document.querySelectorAll("input[name='gender']");
+            //who checked the right now
+            for (let i = 0; i < genders.length; i++) {
+                if (genders[i].checked) {
+                   console.log("Gender selected: " + genders[i].value);
+                }
+            }
+        }
+    </script>
+</body>
+</html>
