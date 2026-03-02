@@ -111,3 +111,18 @@ input[type="radio"], input[type="checkbox"] {
     border-left: 3px solid #00fff2;
     border-radius: 20px 0 0 0;
 }
+.message {
+    background-color: antiquewhite;
+    padding: 10px;
+    border-radius: 6px;
+    margin-bottom: 15px;  
+    display: none; 
+}
+.message.error {
+    color: hsl(0, 0%, 100%);
+    background-color: #ff0000;
+}   
+.message.success {
+    color: #fdfdfd;
+    background-color: #00ff00;
+}
