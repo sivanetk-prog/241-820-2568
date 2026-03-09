@@ -29,24 +29,63 @@ app.get('/users', async (req, res) => {
     res.json(results[0]);
 });
 
+const validateData = (userData) => {
+    let errors = [];
+    if (!userData.firstName) {
+        errors.push('กรุณากรอกชื่อ');
+    }
+    if (!userData.lastName) {
+        errors.push('กรุณากรอกนามสกุล');
+    }
+    if (!userData.age) {
+        errors.push('กรุณากรอกอายุ');
+    }
+    if (!userData.gender) {
+        errors.push('กรุณาเลือกเพศ');
+    }
+    if (!userData.interests) {
+        errors.push('กรุณาเลือกงานอดิเรก');
+    }
+    if (!userData.description) {
+        errors.push('กรุณากรอกคำอธิบาย');
+    }
+    return errors;
+}
+
 //path = POST /users สำหรับเพิ่ม user ใหม่
 app.post('/users', async (req, res) => {
     try {
         let user = req.body;
+
+        const errors = validateData(user);
+
+        if (errors.length > 0) {
+            throw {
+                message: 'กรุณากรอกข้อมูลให้ครบถ้วน',
+                errors: errors
+            };
+        }
+
         const results = await conn.query('INSERT INTO users SET ?', user)
+
         res.json({
             message: 'User created successfully',
             data: results[0]
-        })
+        });
+
     } catch (error) {
-        console.error('Error creating user:', error);
-        res.status(500).json({
-            message: 'Error creating user',
-            error: error.message
+
+        const errorMessage = error.message || 'Error creating user';
+        const errors = error.errors || [];
+
+        console.error('Error creating user:', errorMessage);
+
+        res.status(400).json({
+            message: errorMessage,
+            errors: errors
         });
     }
 });
-
 // path GET /users/:id สำหรับด get ข้อมูล user ที่มี id ตรงกับที่ส่งมา
 app.get('/users/:id', async (req, res) => {
     try {
